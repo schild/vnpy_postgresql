@@ -1,3 +1,4 @@
+import copy
 from datetime import datetime
 from typing import List
 
@@ -170,7 +171,7 @@ class PostgresqlDatabase(BaseDatabase):
         for bar in bars:
             bar.datetime = convert_tz(bar.datetime)
 
-            d: dict = bar.__dict__
+            d: dict = copy.copy(bar.__dict__)
             d["exchange"] = d["exchange"].value
             d["interval"] = d["interval"].value
             d.pop("gateway_name")
@@ -244,7 +245,7 @@ class PostgresqlDatabase(BaseDatabase):
         for tick in ticks:
             tick.datetime = convert_tz(tick.datetime)
 
-            d: dict = tick.__dict__
+            d: dict = copy.copy(tick.__dict__)
             d["exchange"] = d["exchange"].value
             d.pop("gateway_name")
             d.pop("vt_symbol")
